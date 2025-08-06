@@ -1,54 +1,82 @@
 # cmd-exif
 
-A lightweight Python project to read EXIF data from images.
+A lightweight Python tool to extract and display EXIF metadata from image files.
 
 ## Features
-- Extract detailed EXIF metadata from image files.
-- Simple and easy-to-use Python script.
-- Compatible with most image file types that store EXIF data.
+- Extract detailed EXIF metadata from image files
+- Simple command-line interface
+- Docker support for easy deployment
+- Compatible with most image formats that store EXIF data (JPEG, TIFF, etc.)
 
-## Getting Started
+## Prerequisites
+- Python 3.7+ or Docker
+- [pip](https://pip.pypa.io/en/stable/) (for local installation)
 
-### Prerequisites
-Make sure you have the following installed:
-- Python 3.7 or later
-- [pip](https://pip.pypa.io/en/stable/)
+## Installation
 
-### Setup
-1. **Clone the Repository**
-   ```bash
-   git clone https://github.com/your-repo/cmd-exif.git
-   cd cmd-exif
-   ```
+### Local Setup
 
-2. **Create a Virtual Environment**
-   Using IntelliJ:
-    - Open the project in IntelliJ.
-    - Navigate to `File > Project Structure > Modules` and set up a virtual environment.
-
-   Or, create one manually:
-   ```bash
-   python -m venv venv
-   source venv/bin/activate   # On Windows, use venv\Scripts\activate
-   ```
-
-3. **Install Dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-### Running the Project
-You can use IntelliJ’s run configuration to execute the script. Make sure to set the path to the image you want to analyze in the script or as a command-line argument.
-
-Alternatively, run the script directly from the command line:
 ```bash
-python main.py --image /path/to/your/image.jpg
+git clone https://github.com/your-repo/cmd-exif.git
+cd cmd-exif
+pip install -r requirements.txt
+```
+
+### Docker Setup
+
+No installation needed - just use Docker Compose:
+```bash
+git clone https://github.com/your-repo/cmd-exif.git
+cd cmd-exif
 ```
 
 ## Usage
-1. Ensure your image file is accessible.
-2. Run the script using IntelliJ or the command line.
-3. View the extracted EXIF data in the output.
+
+### Local Usage
+
+```bash
+python main.py path/to/your/image.jpg
+```
+
+### Docker Usage
+
+```bash
+# Create images directory and add your image
+mkdir -p images
+cp your-image.jpg images/sample.jpg
+
+# Run with Docker Compose
+docker-compose run --rm exif-reader
+
+# Or run with a different image by overriding the command
+docker-compose run --rm exif-reader sh -c "pip install -r requirements.txt && python main.py /images/another-image.jpg"
+```
+
+## Output
+
+The tool displays EXIF metadata in a formatted structure, including:
+- Camera make and model
+- Date and time taken
+- GPS coordinates (if available)
+- Camera settings (ISO, aperture, shutter speed, etc.)
+- Image dimensions and orientation
+- And more...
+
+## Example
+
+```bash
+python main.py vacation-photo.jpg
+```
+
+Output:
+```
+{'DateTime': '2024:07:15 14:30:00',
+ 'Make': 'Canon',
+ 'Model': 'Canon EOS R5',
+ 'ExifImageWidth': 6720,
+ 'ExifImageHeight': 4480,
+ ...}
+```
 
 # License
 
