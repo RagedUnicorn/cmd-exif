@@ -1,0 +1,14 @@
+services:
+  exif-reader:
+    image: ragedunicorn/python:3-alpine3.22.1-1
+    volumes:
+      - .:/app
+      - ./images:/images
+    working_dir: /app
+    entrypoint: []
+    command:
+      - sh
+      - -c
+      - |
+        pip install -r requirements.txt &&
+        python main.py /images/sample.jpg
